@@ -45,10 +45,8 @@ pipeline {
             sh "git checkout master"
             sh "git config --global credential.helper store"
             sh "jx step git credentials"
-
+            
             // so we can retrieve the version in later steps
-            go get -u github.com/golang/dep/cmd/dep
-            dep ensure -v -update 
             sh "echo \$(jx-release-version) > VERSION"
             sh "jx step tag --version \$(cat VERSION)"
             sh "make build"
